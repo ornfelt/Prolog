@@ -1,0 +1,43 @@
+Lecture 2022-01-21
+Prolog examples from today (https://swish.swi-prolog.org):
+
+studies(charly,prog).
+studies(charly,maths).
+studies(olly,prog).
+studies(jane,maths).
+studies(kate,graphics).
+
+teaches(steve,prog).
+teaches(chris,maths).
+teaches(chris,geometry).
+teaches(anna,graphics).
+
+professor(X,Y) :- teaches(X,C),studies(Y,C).
+
+mem(X,[X|_]).
+mem(X,[_|T]):-mem(X,T).
+
+concat([],Y,Y).
+concat([H|T],Y,[H|Z]):-concat(T,Y,Z).
+
+doctor(steve).
+doctor(jane).
+doctor(anna).
+nurse(bob).
+nurse(kate).
+dept(oncology).
+dept(cardiac).
+dept(routine).
+
+work(steve,oncology).
+work(jane,oncology).
+work(anna,oncology).
+work(steve,routine).
+work(kate,oncology).
+work(kate,cardiac).
+work(kate,routine).
+
+count(P,Count):- findall(1,P,L),length(L,Count).
+docdept(Dept,Doc):-doctor(Doc),work(Doc,Dept).
+docindept(Dept,L):- findall(D,docdept(Dept,D),L).
+onlytwodoc(Dept):- count(docdept(Dept,_),C),C<3
